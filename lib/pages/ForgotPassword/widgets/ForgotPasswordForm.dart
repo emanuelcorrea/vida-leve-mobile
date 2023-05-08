@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vidaleve/pages/ForgotPassword/widgets/ForgotBack.dart';
 import 'package:vidaleve/pages/ForgotPassword/widgets/ForgotButton.dart';
-import 'package:vidaleve/pages/Login/widgets/LoginInput.dart';
+import 'package:vidaleve/widgets/Input/Input.dart';
 
 class ForgotPasswordForm extends StatefulWidget {
   const ForgotPasswordForm({super.key});
@@ -27,16 +27,16 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
     return Form(
         key: _formKey,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+          padding: const EdgeInsets.only(top: 20, left: 40.0, right: 50.0),
           child: Column(
             children: [
-              LoginInput(
+              Input(
                 placeholder: 'E-mail',
                 icon: const Icon(Icons.person),
                 controller: email,
               ),
               ForgotButton(formKey: _formKey, email: email),
-              ForgotBack()
+              const ForgotBack()
             ],
           ),
         ));

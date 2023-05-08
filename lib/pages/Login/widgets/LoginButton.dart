@@ -1,8 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidaleve/utils/authentication_service.dart';
+import 'package:vidaleve/utils/firebase_exceptions.dart';
+import 'package:vidaleve/widgets/ToastNotification/ToastNotification.dart';
 
 class LoginButton extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -20,6 +25,8 @@ class LoginButton extends StatefulWidget {
 }
 
 class _LoginButtonState extends State<LoginButton> {
+  final _authService = AuthenticationService();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +37,7 @@ class _LoginButtonState extends State<LoginButton> {
             backgroundColor: MaterialStateProperty.resolveWith((states) {
               // If the button is pressed, return green, otherwise blue
               if (states.contains(MaterialState.pressed)) {
-                return Colors.green;
+                return const Color(0xFF00588A);
               }
               return const Color(0xFF00588A);
             }),
@@ -38,25 +45,31 @@ class _LoginButtonState extends State<LoginButton> {
                 RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ))),
-        onPressed: () {
+        onPressed: () async {
           // Validate will return true if the form is valid, or false if
           // the form is invalid.
           try {
             if (widget.formKey.currentState!.validate()) {
               widget.formKey.currentState!.save();
 
-              FirebaseAuth.instance
-                  .signInWithEmailAndPassword(
-                      email: widget.email.text.trim(),
-                      password: widget.password.text.trim())
-                  .catchError((value) =>
-                      // ignore: invalid_return_type_for_catch_error
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("E-mail ou senha incorretos!"),
-                      )));
+              String email = widget.email.text.trim();
+              String password = widget.password.text.trim();
 
-              print('nome ${widget.email.text}');
-              print('password ${widget.password.text}');
+              final status = await _authService.login(
+                email: email,
+                password: password,
+              );
+
+              if (status == AuthStatus.successful) {
+                ToastNotification.message(context,
+                    message: 'Login efetuado com sucesso!');
+              } else {
+                final error = AuthExceptionHandler.generateMessage(status);
+                ToastNotification.message(
+                  context,
+                  message: error,
+                );
+              }
             }
           } catch (e) {
             print(e);

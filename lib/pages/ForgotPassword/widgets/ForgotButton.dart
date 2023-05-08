@@ -1,8 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidaleve/utils/authentication_service.dart';
+import 'package:vidaleve/utils/firebase_exceptions.dart';
+import 'package:vidaleve/widgets/ToastNotification/ToastNotification.dart';
 
 class ForgotButton extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -15,17 +20,19 @@ class ForgotButton extends StatefulWidget {
 }
 
 class _ForgotButtonState extends State<ForgotButton> {
+  final _authService = AuthenticationService();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      padding: const EdgeInsets.only(top: 15),
+      padding: const EdgeInsets.only(top: 25),
       child: ElevatedButton(
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith((states) {
               // If the button is pressed, return green, otherwise blue
               if (states.contains(MaterialState.pressed)) {
-                return Colors.green;
+                return const Color(0xFF00588A);
               }
               return const Color(0xFF00588A);
             }),
@@ -33,15 +40,30 @@ class _ForgotButtonState extends State<ForgotButton> {
                 RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ))),
-        onPressed: () {
+        onPressed: () async {
           try {
             if (widget.formKey.currentState!.validate()) {
               widget.formKey.currentState!.save();
 
-              FirebaseAuth.instance
-                  .sendPasswordResetEmail(email: widget.email.text.trim());
+              String email = widget.email.text.trim();
 
-              print('nome ${widget.email.text}');
+              final status = await _authService.resetPassword(email: email);
+
+              if (status == AuthStatus.successful) {
+                ToastNotification.message(
+                  context,
+                  message: 'E-mail de recuperação enviado!',
+                );
+
+                Navigator.pushNamed(context, '/');
+              } else {
+                final error = AuthExceptionHandler.generateMessage(status);
+
+                ToastNotification.showErrorSnackBar(
+                  context,
+                  message: error,
+                );
+              }
             }
           } catch (e) {
             print(e);
@@ -49,7 +71,7 @@ class _ForgotButtonState extends State<ForgotButton> {
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('Resetar',
+          child: Text('Enviar',
               style: GoogleFonts.jost(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,

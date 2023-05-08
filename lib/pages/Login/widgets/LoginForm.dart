@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vidaleve/pages/Login/widgets/LoginButton.dart';
 import 'package:vidaleve/pages/Login/widgets/LoginForget.dart';
-import 'package:vidaleve/pages/Login/widgets/LoginInput.dart';
+import 'package:vidaleve/widgets/Input/Input.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -32,17 +32,18 @@ class _LoginFormState extends State<LoginForm> {
         key: _formKey,
         child: Column(
           children: [
-            LoginInput(
+            Input(
               placeholder: 'E-mail',
               icon: const Icon(Icons.person),
               controller: email,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
-              child: LoginInput(
+              child: Input(
                 placeholder: 'Senha',
                 icon: const Icon(Icons.lock),
                 controller: password,
+                type: 'password',
               ),
             ),
             const LoginForget(),

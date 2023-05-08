@@ -22,7 +22,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         child: Column(
           children: const [
             Logo(),
-            PageTitle(title: 'Resetar Senha'),
+            PageTitle(title: 'Recuperar Senha'),
             ForgotPasswordForm(),
             Spacer(),
             LoginTerms()

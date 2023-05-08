@@ -8,6 +8,8 @@ import 'package:vidaleve/pages/Home/widgets/HomeHeader.dart';
 import 'package:vidaleve/pages/Home/widgets/HomeMenuList.dart';
 import 'package:vidaleve/pages/Home/widgets/HomeSearch.dart';
 import 'package:vidaleve/pages/Home/widgets/HomeTitle.dart';
+import 'package:vidaleve/utils/authentication_service.dart';
+import 'package:vidaleve/widgets/ToastNotification/ToastNotification.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,13 +19,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _authService = AuthenticationService();
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
-      print(index);
       if (index == 4) {
-        FirebaseAuth.instance.signOut();
+        ToastNotification.message(context,
+            message: 'Saída efetuada com sucesso!');
+        _authService.logout();
       }
       _selectedIndex = index;
     });
