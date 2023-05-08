@@ -14,10 +14,10 @@ class _LoginForgetState extends State<LoginForget> {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: () => {},
+        onPressed: () => {Navigator.pushNamed(context, '/forgot-password')},
         child: Align(
           alignment: Alignment.centerRight,
-          child: Text('Forgot Password',
+          child: Text('Esqueci minha senha',
               style: GoogleFonts.jost(
                   fontWeight: FontWeight.w600,
                   fontSize: 16.0,

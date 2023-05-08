@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:vidaleve/pages/Login/widgets/LoginForget.dart';
-import 'package:vidaleve/pages/Login/widgets/LoginForm.dart';
+import 'package:vidaleve/pages/ForgotPassword/widgets/ForgotPasswordForm.dart';
 import 'package:vidaleve/pages/Login/widgets/LoginTerms.dart';
 import 'package:vidaleve/widgets/Logo/Logo.dart';
 import 'package:vidaleve/widgets/PageTitle/PageTitle.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class ForgotPasswordPage extends StatefulWidget {
+  const ForgotPasswordPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,8 +22,8 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: const [
             Logo(),
-            PageTitle(title: 'Login'),
-            LoginForm(),
+            PageTitle(title: 'Resetar Senha'),
+            ForgotPasswordForm(),
             Spacer(),
             LoginTerms()
           ],

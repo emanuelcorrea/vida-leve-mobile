@@ -14,27 +14,43 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 20, left: 40.0, right: 50.0),
       child: Form(
+        key: _formKey,
         child: Column(
           children: [
-            const LoginInput(
-              placeholder: 'ID',
-              icon: Icon(Icons.person),
+            LoginInput(
+              placeholder: 'E-mail',
+              icon: const Icon(Icons.person),
+              controller: email,
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 15.0),
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
               child: LoginInput(
-                placeholder: 'Password',
-                icon: Icon(Icons.lock),
+                placeholder: 'Senha',
+                icon: const Icon(Icons.lock),
+                controller: password,
               ),
             ),
             const LoginForget(),
-            LoginButton(formKey: _formKey)
+            LoginButton(
+              formKey: _formKey,
+              email: email,
+              password: password,
+            )
           ],
         ),
       ),

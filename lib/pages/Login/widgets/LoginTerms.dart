@@ -12,7 +12,7 @@ class LoginTerms extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 20.0),
       child: Align(
         alignment: Alignment.bottomCenter,
-        child: Text('Terms of use and privacy policy',
+        child: Text('Termos de uso e políticas de privacidade',
             style: GoogleFonts.jost(
                 fontWeight: FontWeight.w600, color: const Color(0xFF4673FF))),
       ),

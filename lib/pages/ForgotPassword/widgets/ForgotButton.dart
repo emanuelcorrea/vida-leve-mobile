@@ -4,22 +4,17 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginButton extends StatefulWidget {
+class ForgotButton extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController email;
-  final TextEditingController password;
 
-  const LoginButton(
-      {super.key,
-      required this.formKey,
-      required this.email,
-      required this.password});
+  const ForgotButton({super.key, required this.formKey, required this.email});
 
   @override
-  State<LoginButton> createState() => _LoginButtonState();
+  State<ForgotButton> createState() => _ForgotButtonState();
 }
 
-class _LoginButtonState extends State<LoginButton> {
+class _ForgotButtonState extends State<ForgotButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,24 +34,14 @@ class _LoginButtonState extends State<LoginButton> {
               borderRadius: BorderRadius.circular(10.0),
             ))),
         onPressed: () {
-          // Validate will return true if the form is valid, or false if
-          // the form is invalid.
           try {
             if (widget.formKey.currentState!.validate()) {
               widget.formKey.currentState!.save();
 
               FirebaseAuth.instance
-                  .signInWithEmailAndPassword(
-                      email: widget.email.text.trim(),
-                      password: widget.password.text.trim())
-                  .catchError((value) =>
-                      // ignore: invalid_return_type_for_catch_error
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("E-mail ou senha incorretos!"),
-                      )));
+                  .sendPasswordResetEmail(email: widget.email.text.trim());
 
               print('nome ${widget.email.text}');
-              print('password ${widget.password.text}');
             }
           } catch (e) {
             print(e);
@@ -64,7 +49,7 @@ class _LoginButtonState extends State<LoginButton> {
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('Entrar',
+          child: Text('Resetar',
               style: GoogleFonts.jost(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
