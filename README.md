@@ -6,23 +6,21 @@
 
 ![Preview-Screens](https://i.imgur.com/7YUXUXv.png)
 
-A Flutter project.
+## Sobre esse projeto
 
-## About this Project
+Os alunos do curso de Análise e Desenvolvimento de Sistemas da Unifeob criaram um aplicativo chamado Vida Leve em Flutter, que é uma plataforma digital complementar ao programa de emagrecimento saudável da Escola do Bem Estar da universidade. O aplicativo visa fornecer aos usuários uma experiência interativa e personalizada.
 
-This project is about an integrative project.
+## Instalação
 
-## Installers
-
-If you want to test the App in the Production mode, click down:
+Se você deseja testar esse aplicativo em modo de produção, clique abaixo:
 
 [Android .apk installer](https://drive.google.com/file/d/1GDw7ODC4dLLqjcZ-V7Gsi-Vd8bEm3_AQ/view)
 
-iOS .ipa installer: Soon!
+iOS .ipa installer: Em breve!
 
-### Installing
+### Baixando o projeto
 
-**Cloning the Repository**
+**Clonando o repositóriop**
 
 ```
 $ git clone https://github.com/emanuelcorrea/vida-leve-mobile.git
@@ -30,9 +28,9 @@ $ git clone https://github.com/emanuelcorrea/vida-leve-mobile.git
 $ cd vida-leve-mobile
 ```
 
-### Running
+### Iniciando
 
-After to downloaded or clonned the repositore, you can now run the app:
+Depois de baixar ou clonar o repositório, você pode iniciar o aplicativo:
 
 Android
 
@@ -40,19 +38,19 @@ Android
 $ flutter run
 ```
 
-## Built With
+## Feito com
 
-- [Flutter](https://flutter.dev/) - Build the native app using the framework Flutter, in Dart.
+- [Flutter](https://flutter.dev/) - Construa aplicativos nativos usando o framework Flutter, em Dart.
 - [Google-Fonts](https://fonts.google.com/) - Google Fonts.
 - [Firebase](https://firebase.google.com/) - Google Firebase
 
 ## Contributing
 
-You can send how many PR's do you want, I'll be glad to analyse and accept them! And if you have any question about the project...
+Você pode enviar quantos PR's quiser, terei prazer em analisá-los e aceitá-los! E se você tiver alguma dúvida sobre o projeto...
 
-Email-me: emanueldascorrea@gmail.com
+Me envie um e-mail: emanueldascorrea@gmail.com
 
-Connect with me at [LinkedIn](https://www.linkedin.com/in/emanuel-correa/)
+Me conecte em: [LinkedIn](https://www.linkedin.com/in/emanuel-correa/)
 
 Thank you!
 
