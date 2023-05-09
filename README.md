@@ -14,7 +14,7 @@ Os alunos do curso de Análise e Desenvolvimento de Sistemas da Unifeob criaram 
 
 Se você deseja testar esse aplicativo em modo de produção, clique abaixo:
 
-[Android .apk installer](https://drive.google.com/file/d/1GDw7ODC4dLLqjcZ-V7Gsi-Vd8bEm3_AQ/view)
+[Android .apk installer](https://drive.google.com/file/d/1io4S3Hp8FuS-yiXnIDNSuHUljAvptFDU/view)
 
 iOS .ipa installer: Em breve!
 
