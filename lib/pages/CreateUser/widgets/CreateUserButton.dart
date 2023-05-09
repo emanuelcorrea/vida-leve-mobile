@@ -9,22 +9,23 @@ import 'package:vidaleve/utils/authentication_service.dart';
 import 'package:vidaleve/utils/firebase_exceptions.dart';
 import 'package:vidaleve/widgets/ToastNotification/ToastNotification.dart';
 
-class LoginButton extends StatefulWidget {
+class CreateUserButton extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController email;
   final TextEditingController password;
+  final TextEditingController name;
 
-  const LoginButton(
+  const CreateUserButton(
       {super.key,
       required this.formKey,
       required this.email,
-      required this.password});
+      required this.password, required this.name});
 
   @override
-  State<LoginButton> createState() => _LoginButtonState();
+  State<CreateUserButton> createState() => _LoginButtonState();
 }
 
-class _LoginButtonState extends State<LoginButton> {
+class _LoginButtonState extends State<CreateUserButton> {
   final _authService = AuthenticationService();
 
   @override
@@ -54,17 +55,19 @@ class _LoginButtonState extends State<LoginButton> {
 
               String email = widget.email.text.trim();
               String password = widget.password.text.trim();
+              String name = widget.name.text.trim();
 
-              final status = await _authService.login(
+              final status = await _authService.createAccount(
                 email: email,
                 password: password,
+                name: name
               );
 
               if (status == AuthStatus.successful) {
                 ToastNotification.message(context,
-                    message: 'Login efetuado com sucesso!');
-
-                Navigator.pushNamed(context, '/home');
+                    message: 'Usuário criado com sucesso!');
+                
+                Navigator.pushNamed(context, '/');
               } else {
                 final error = AuthExceptionHandler.generateMessage(status);
                 ToastNotification.message(
@@ -73,13 +76,13 @@ class _LoginButtonState extends State<LoginButton> {
                 );
               }
             }
-          } catch (e) {
+          } on FirebaseAuthException catch (e) {
             print(e);
           }
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('Entrar',
+          child: Text('Criar',
               style: GoogleFonts.jost(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,

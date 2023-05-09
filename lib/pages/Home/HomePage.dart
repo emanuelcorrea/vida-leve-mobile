@@ -24,10 +24,16 @@ class _HomePageState extends State<HomePage> {
 
   void _onItemTapped(int index) {
     setState(() {
+      if (index == 3) {
+        _authService.currentUser();
+      }
+
       if (index == 4) {
         ToastNotification.message(context,
             message: 'Saída efetuada com sucesso!');
         _authService.logout();
+
+        Navigator.pushNamed(context, '/login');
       }
       _selectedIndex = index;
     });

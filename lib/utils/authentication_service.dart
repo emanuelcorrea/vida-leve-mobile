@@ -1,9 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:vidaleve/utils/firebase_exceptions.dart';
+import 'package:firebase_ui_database/firebase_ui_database.dart';
 
 class AuthenticationService {
   static final _auth = FirebaseAuth.instance;
   static late AuthStatus _status;
+  final usersQuery = FirebaseDatabase.instance.ref('users').orderByChild('name');
+
 
   Future<AuthStatus> createAccount({
     required String email,
@@ -53,5 +57,13 @@ class AuthenticationService {
 
   Future<void> logout() async {
     await _auth.signOut();
+  }
+  
+  Future<void> currentUser() async {
+    print('oii');
+    
+    final usersQuery = FirebaseDatabase.instance.ref('users').orderByChild('name');
+    
+    print(usersQuery);
   }
 }

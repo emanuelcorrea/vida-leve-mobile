@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:vidaleve/pages/CreateUser/CreateUserPage.dart';
 import 'package:vidaleve/pages/ForgotPassword/ForgotPasswordPage.dart';
 import 'package:vidaleve/pages/Home/HomePage.dart';
 import 'package:vidaleve/pages/Login/LoginPage.dart';
@@ -35,7 +36,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
+          '/home': (context) => const HomePage(),
           '/login': (context) => const LoginPage(),
+          '/create-user': (context) => const CreateUserPage(),
           '/forgot-password': (context) => const ForgotPasswordPage()
         });
   }

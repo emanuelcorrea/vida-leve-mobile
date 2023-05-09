@@ -1,36 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:vidaleve/pages/Login/widgets/LoginCreateUser.dart';
-import 'package:vidaleve/pages/Login/widgets/LoginForget.dart';
-import 'package:vidaleve/pages/Login/widgets/LoginForm.dart';
+import 'package:vidaleve/pages/CreateUser/widgets/CreateUserForm.dart';
 import 'package:vidaleve/pages/Login/widgets/LoginTerms.dart';
 import 'package:vidaleve/widgets/Logo/Logo.dart';
 import 'package:vidaleve/widgets/PageTitle/PageTitle.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class CreateUserPage extends StatefulWidget {
+  const CreateUserPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<CreateUserPage> createState() => _CreateUserState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _CreateUserState extends State<CreateUserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
           children: const [
             Logo(),
-            PageTitle(title: 'Login'),
-            LoginForm(),
-            LoginCreateUser(),
+            PageTitle(title: 'Criar conta'),
+            CreateUserForm(),
             Spacer(),
             LoginTerms()
           ],
-        ),
+        )
       ),
     );
   }
