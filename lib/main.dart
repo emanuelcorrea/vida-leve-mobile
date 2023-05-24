@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:vidaleve/pages/CreateUser/CreateUserPage.dart';
 import 'package:vidaleve/pages/ForgotPassword/ForgotPasswordPage.dart';
 import 'package:vidaleve/pages/Home/HomePage.dart';
+import 'package:vidaleve/pages/Layout/Layout.dart';
 import 'package:vidaleve/pages/Login/LoginPage.dart';
+import 'package:vidaleve/pages/PatientList/PatientListPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const HomePage();
+              return const Layout();
             } else {
               return const LoginPage();
             }
@@ -37,9 +39,11 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/home': (context) => const HomePage(),
+          '/layout': (context) => const Layout(),
           '/login': (context) => const LoginPage(),
           '/create-user': (context) => const CreateUserPage(),
-          '/forgot-password': (context) => const ForgotPasswordPage()
+          '/forgot-password': (context) => const ForgotPasswordPage(),
+          '/patient-list': (context) => const PatientListPage(),
         });
   }
 }

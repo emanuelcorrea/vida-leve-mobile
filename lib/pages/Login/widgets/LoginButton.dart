@@ -64,7 +64,7 @@ class _LoginButtonState extends State<LoginButton> {
                 ToastNotification.message(context,
                     message: 'Login efetuado com sucesso!');
 
-                Navigator.pushNamed(context, '/home');
+                Navigator.pushNamed(context, '/layout');
               } else {
                 final error = AuthExceptionHandler.generateMessage(status);
                 ToastNotification.message(
