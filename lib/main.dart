@@ -6,6 +6,9 @@ import 'package:vidaleve/pages/ForgotPassword/ForgotPasswordPage.dart';
 import 'package:vidaleve/pages/Home/HomePage.dart';
 import 'package:vidaleve/pages/Layout/Layout.dart';
 import 'package:vidaleve/pages/Login/LoginPage.dart';
+import 'package:vidaleve/pages/Patient/PatientPage.dart';
+import 'package:vidaleve/pages/PatientAnamneses/PatientAnamnesesPage.dart';
+import 'package:vidaleve/pages/PatientDetails/PatientDetailsPage.dart';
 import 'package:vidaleve/pages/PatientList/PatientListPage.dart';
 
 void main() async {
@@ -43,6 +46,9 @@ class MyApp extends StatelessWidget {
           '/login': (context) => const LoginPage(),
           '/create-user': (context) => const CreateUserPage(),
           '/forgot-password': (context) => const ForgotPasswordPage(),
+          '/patient': (context) => const PatientPage(),
+          '/patient-anamneses': (context) => const PatientAnamnesesPage(),
+          '/patient-details': (context) => const PatientDetailsPage(),
           '/patient-list': (context) => const PatientListPage(),
         });
   }
