@@ -8,7 +8,7 @@ import 'package:vidaleve/pages/Home/widgets/HomeHeader.dart';
 import 'package:vidaleve/pages/Home/widgets/HomeMenuList.dart';
 import 'package:vidaleve/pages/Home/widgets/HomeSearch.dart';
 import 'package:vidaleve/pages/Home/widgets/HomeTitle.dart';
-import 'package:vidaleve/utils/authentication_service.dart';
+import 'package:vidaleve/services/authentication_service.dart';
 import 'package:vidaleve/widgets/ToastNotification/ToastNotification.dart';
 
 class HomePage extends StatefulWidget {

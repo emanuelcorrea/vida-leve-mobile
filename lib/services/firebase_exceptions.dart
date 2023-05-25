@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:vidaleve/services/authentication_exceptions.dart';
 
-enum AuthStatus {
+enum AuthStatuse {
   successful,
   wrongPassword,
   emailAlreadyExists,

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidaleve/utils/authentication_service.dart';
-import 'package:vidaleve/utils/firebase_exceptions.dart';
+import 'package:vidaleve/services/authentication_service.dart';
+import 'package:vidaleve/services/authentication_exceptions.dart';
 import 'package:vidaleve/widgets/ToastNotification/ToastNotification.dart';
 
 class ForgotButton extends StatefulWidget {
@@ -57,7 +57,7 @@ class _ForgotButtonState extends State<ForgotButton> {
 
                 Navigator.pushNamed(context, '/');
               } else {
-                final error = AuthExceptionHandler.generateMessage(status);
+                final error = AuthenticationException.generateMessage(status);
 
                 ToastNotification.showErrorSnackBar(
                   context,

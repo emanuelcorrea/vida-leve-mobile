@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vidaleve/pages/ForgotPassword/widgets/ForgotBack.dart';
 import 'package:vidaleve/pages/ForgotPassword/widgets/ForgotButton.dart';
 import 'package:vidaleve/widgets/Input/Input.dart';

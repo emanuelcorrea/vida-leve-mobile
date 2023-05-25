@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidaleve/utils/authentication.dart';
-import 'package:vidaleve/utils/authentication_service.dart';
-import 'package:vidaleve/utils/firebase_exceptions.dart';
+import 'package:vidaleve/services/authentication.dart';
+import 'package:vidaleve/services/authentication_service.dart';
+import 'package:vidaleve/services/authentication_exceptions.dart';
 import 'package:vidaleve/widgets/ToastNotification/ToastNotification.dart';
 
 class LoginButton extends StatefulWidget {
@@ -49,8 +49,6 @@ class _LoginButtonState extends State<LoginButton> {
               borderRadius: BorderRadius.circular(10.0),
             ))),
         onPressed: () async {
-          // Validate will return true if the form is valid, or false if
-          // the form is invalid.
           try {
             if (widget.formKey.currentState!.validate()) {
               widget.formKey.currentState!.save();
@@ -58,28 +56,27 @@ class _LoginButtonState extends State<LoginButton> {
               String email = widget.email.text.trim();
               String password = widget.password.text.trim();
 
-              print('CLICOU AQUI NESSA POHA');
-
               final response = await _authService.login(
                 email: email,
                 password: password,
               );
 
               // var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
-              print(response.body);
+              final status = AuthenticationException.handleAuthException(
+                  (response['code']));
 
-              // if (status == AuthStatus.successful) {
-              //   ToastNotification.message(context,
-              //       message: 'Login efetuado com sucesso!');
+              if (status == AuthStatus.successful) {
+                ToastNotification.message(context,
+                    message: 'Login efetuado com sucesso!');
 
-              //   Navigator.pushNamed(context, '/home');
-              // } else {
-              //   final error = AuthExceptionHandler.generateMessage(status);
-              //   ToastNotification.message(
-              //     context,
-              //     message: error,
-              //   );
-              // }
+                Navigator.pushNamed(context, '/home');
+              } else {
+                final error = AuthenticationException.generateMessage(status);
+                ToastNotification.message(
+                  context,
+                  message: error,
+                );
+              }
             }
           } catch (e) {
             print(e);

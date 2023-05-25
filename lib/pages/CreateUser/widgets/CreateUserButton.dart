@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidaleve/utils/authentication_service.dart';
-import 'package:vidaleve/utils/firebase_exceptions.dart';
+import 'package:vidaleve/services/authentication_service.dart';
+import 'package:vidaleve/services/authentication_exceptions.dart';
 import 'package:vidaleve/widgets/ToastNotification/ToastNotification.dart';
 
 class CreateUserButton extends StatefulWidget {
@@ -19,7 +19,8 @@ class CreateUserButton extends StatefulWidget {
       {super.key,
       required this.formKey,
       required this.email,
-      required this.password, required this.name});
+      required this.password,
+      required this.name});
 
   @override
   State<CreateUserButton> createState() => _LoginButtonState();
@@ -58,18 +59,15 @@ class _LoginButtonState extends State<CreateUserButton> {
               String name = widget.name.text.trim();
 
               final status = await _authService.createAccount(
-                email: email,
-                password: password,
-                name: name
-              );
+                  email: email, password: password, name: name);
 
               if (status == AuthStatus.successful) {
                 ToastNotification.message(context,
                     message: 'Usuário criado com sucesso!');
-                
+
                 Navigator.pushNamed(context, '/');
               } else {
-                final error = AuthExceptionHandler.generateMessage(status);
+                final error = AuthenticationException.generateMessage(status);
                 ToastNotification.message(
                   context,
                   message: error,
