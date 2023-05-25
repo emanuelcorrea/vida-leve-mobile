@@ -17,14 +17,13 @@ class _CreateUserState extends State<CreateUserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
           children: const [
             Logo(),
             PageTitle(title: 'Criar conta'),
             CreateUserForm(),
-            Spacer(),
-            LoginTerms()
           ],
         )
       ),
