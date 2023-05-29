@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:vidaleve/model/user.dart';
+import 'package:vidaleve/providers/settings_provider.dart';
 
 class HomeHeader extends StatefulWidget {
   const HomeHeader({super.key});
@@ -11,8 +12,16 @@ class HomeHeader extends StatefulWidget {
 }
 
 class _HeaderState extends State<HomeHeader> {
+  User? _user;
+
+  loadUser() {
+    _user = Provider.of<SettingsProvider>(context).user;
+  }
+
   @override
   Widget build(BuildContext context) {
+    loadUser();
+
     return Container(
       width: double.infinity,
       height: MediaQuery.of(context).size.height / 3,
@@ -31,11 +40,11 @@ class _HeaderState extends State<HomeHeader> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 194,
+                width: MediaQuery.of(context).size.width / 2,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Olá, Zeca!',
+                    Text('Olá, ${_user?.nome}!',
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w600,
                             color: Colors.white,

@@ -1,13 +1,26 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
-import 'package:vidaleve/services/firebase_exceptions.dart';
+import 'package:dio/dio.dart';
 
 class Api {
   static const host = 'http://192.168.200.104/vidaleve/api';
   static late dynamic _response;
 
-  Future get({required controller, required action}) async {
+  getDio() {
+    BaseOptions options = BaseOptions(
+      baseUrl: host,
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+      contentType: Headers.formUrlEncodedContentType,
+    );
+
+    return Dio(options);
+  }
+
+  Future get({
+    required controller,
+    required action,
+  }) async {
     String url = '$host/?api=$controller&action=$action';
 
     try {
@@ -21,17 +34,23 @@ class Api {
     return _response;
   }
 
-  Future post({required controller, required action, data}) async {
+  Future post({
+    required controller,
+    required action,
+    data,
+  }) async {
+    final Dio dio = getDio();
+
     String url = '$host/?api=$controller&action=$action';
 
     try {
-      Uri uri = Uri.parse(url);
-
-      _response = await http.post(uri, body: data);
-    } on Exception catch (e) {
-      print(e);
+      _response = await dio.post(url, data: data);
+    } on DioError catch (_) {
+      rethrow;
+    } catch (e) {
+      throw ('Failed to make the request: $e');
     }
 
-    return _response;
+    return jsonDecode(_response.data);
   }
 }

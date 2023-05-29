@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginCreateUser extends StatefulWidget {
@@ -13,12 +12,20 @@ class LoginCreateUser extends StatefulWidget {
 class _LoginCreateUserState extends State<LoginCreateUser> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: TextButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/create-user');
-        },
-        child: Text('Criar conta', style: GoogleFonts.jost(fontWeight: FontWeight.w600, color: const Color(0xFF00588A), fontSize: 16))),
+    return TextButton(
+      onPressed: () => context.go('/create-user'),
+      style: ButtonStyle(
+        maximumSize: MaterialStateProperty.all<Size>(const Size(80, 50)),
+        fixedSize: MaterialStateProperty.all<Size>(const Size(80, 50)),
+      ),
+      child: Text(
+        'Criar conta',
+        style: GoogleFonts.jost(
+          fontWeight: FontWeight.w600,
+          color: const Color(0xFF00588A),
+          fontSize: 16,
+        ),
+      ),
     );
   }
 }

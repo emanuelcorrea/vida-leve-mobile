@@ -1,12 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidaleve/services/authentication_service.dart';
-import 'package:vidaleve/services/authentication_exceptions.dart';
+import 'package:provider/provider.dart';
+import 'package:vidaleve/providers/auth_provider.dart';
+import 'package:vidaleve/providers/settings_provider.dart';
+import 'package:vidaleve/services/authentication.dart';
+import 'package:vidaleve/interfaces/authentication_exceptions.dart';
 import 'package:vidaleve/widgets/ToastNotification/ToastNotification.dart';
 
 class ForgotButton extends StatefulWidget {
@@ -20,7 +21,25 @@ class ForgotButton extends StatefulWidget {
 }
 
 class _ForgotButtonState extends State<ForgotButton> {
-  final _authService = AuthenticationService();
+  final _authService = Authentication();
+
+  void generateToken() {
+    Provider.of<AuthProvider>(context, listen: false).generateToken();
+  }
+
+  String getCode() {
+    return Provider.of<AuthProvider>(context, listen: false).token;
+  }
+
+  void setLoading(bool isLoading) {
+    Provider.of<SettingsProvider>(context, listen: false)
+        .setIsLoading(isLoading);
+  }
+
+  setEmail(String email) {
+    Provider.of<AuthProvider>(context, listen: false)
+        .changeForgottenEmail(email);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +49,6 @@ class _ForgotButtonState extends State<ForgotButton> {
       child: ElevatedButton(
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith((states) {
-              // If the button is pressed, return green, otherwise blue
               if (states.contains(MaterialState.pressed)) {
                 return const Color(0xFF00588A);
               }
@@ -43,19 +61,36 @@ class _ForgotButtonState extends State<ForgotButton> {
         onPressed: () async {
           try {
             if (widget.formKey.currentState!.validate()) {
+              setLoading(true);
               widget.formKey.currentState!.save();
 
+              FocusScope.of(context).unfocus();
+
+              generateToken();
+
+              final String code = getCode();
               String email = widget.email.text.trim();
 
-              final status = await _authService.resetPassword(email: email);
+              final response = await _authService.resetPassword(
+                email: email,
+                code: code,
+              );
+
+              final status = AuthenticationException.handleAuthException(
+                (response['code']),
+              );
 
               if (status == AuthStatus.successful) {
+                setLoading(false);
+                setEmail(email);
+
                 ToastNotification.message(
-                  context,
                   message: 'E-mail de recuperação enviado!',
                 );
 
-                Navigator.pushNamed(context, '/');
+                Future.delayed(const Duration(milliseconds: 600), () {
+                  context.go('/auth/forgot-password/confirmation');
+                });
               } else {
                 final error = AuthenticationException.generateMessage(status);
 
@@ -71,11 +106,14 @@ class _ForgotButtonState extends State<ForgotButton> {
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('Enviar',
-              style: GoogleFonts.jost(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white)),
+          child: Text(
+            'Enviar',
+            style: GoogleFonts.jost(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+          ),
         ),
       ),
     );

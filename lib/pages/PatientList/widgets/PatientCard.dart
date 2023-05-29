@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidaleve/model/Patient.dart';
 
@@ -15,7 +14,7 @@ class PatientCard extends StatefulWidget {
 
 class _PatientCardState extends State<PatientCard> {
   _onTap() {
-    Navigator.pushNamed(context, '/patient', arguments: widget.patient);
+    context.push('/patient', extra: widget.patient);
   }
 
   @override

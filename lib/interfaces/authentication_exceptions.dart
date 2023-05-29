@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dio/dio.dart';
 
 enum AuthStatus {
   successful,
@@ -7,6 +7,13 @@ enum AuthStatus {
   invalidEmail,
   weakPassword,
   userNotFound,
+  unknown,
+}
+
+enum RequestStatus {
+  successful,
+  error,
+  timeout,
   unknown,
 }
 
@@ -33,9 +40,32 @@ class AuthenticationException {
       case "successful":
         status = AuthStatus.successful;
         break;
+      case "error":
+        status = AuthStatus.successful;
+        break;
       default:
         status = AuthStatus.unknown;
     }
+    return status;
+  }
+
+  static handleRequestException(DioErrorType exception) {
+    RequestStatus status;
+
+    switch (exception) {
+      case DioErrorType.connectionTimeout:
+      case DioErrorType.receiveTimeout:
+        status = RequestStatus.timeout;
+        break;
+      case DioErrorType.badResponse:
+      case DioErrorType.connectionError:
+      case DioErrorType.cancel:
+        status = RequestStatus.error;
+        break;
+      default:
+        status = RequestStatus.unknown;
+    }
+
     return status;
   }
 

@@ -1,9 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:vidaleve/pages/Home/widgets/HomeMenuItem.dart';
 
 class HomeMenuList extends StatefulWidget {
@@ -15,9 +10,9 @@ class HomeMenuList extends StatefulWidget {
 
 class _HomeMenuListState extends State<HomeMenuList> {
   final dynamic menuList = [
-    {'name': 'Lista de Pacientes'},
-    {'name': 'Registro de Pacientes'},
-    {'name': 'Acesso as Anamneses'},
+    {'name': 'Lista de Pacientes', 'route': '/patient/list'},
+    {'name': 'Registro de Pacientes', 'route': '/patient/list'},
+    {'name': 'Acesso as Anamneses', 'route': '/patient/list'},
   ];
 
   @override

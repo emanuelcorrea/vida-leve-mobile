@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vidaleve/main.dart';
 
 class ToastNotification {
   static showSuccessSnackBar(BuildContext context,
@@ -44,18 +45,20 @@ class ToastNotification {
     );
   }
 
-  static void message(BuildContext context,
-      {String? message,
-      int milliseconds = 5000,
-      SnackBarBehavior snackBarBehavior = SnackBarBehavior.floating}) {
-    ScaffoldMessenger.of(context).showSnackBar(
+  static void message({
+    String? message,
+    int milliseconds = 3000,
+    SnackBarBehavior snackBarBehavior = SnackBarBehavior.floating,
+  }) {
+    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
       SnackBar(
         backgroundColor: const Color(0xFF00588A),
         behavior: snackBarBehavior,
         action: SnackBarAction(
             textColor: Colors.white,
             label: 'Fechar',
-            onPressed: () => _dismissCurrentSnackBar(context)),
+            onPressed: () =>
+                _dismissCurrentSnackBar(navigatorKey.currentContext!)),
         duration: Duration(milliseconds: milliseconds),
         content: SelectableText(
           message ?? 'Erro no sistema.',

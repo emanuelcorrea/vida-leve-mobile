@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:vidaleve/services/authentication_exceptions.dart';
+import 'package:vidaleve/interfaces/authentication_exceptions.dart';
 
 enum AuthStatuse {
   successful,

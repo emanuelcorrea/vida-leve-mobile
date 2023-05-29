@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeMenuItem extends StatefulWidget {
@@ -20,12 +19,12 @@ class _HomeMenuItemState extends State<HomeMenuItem> {
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: null,
+          onPressed: () => context.go(widget.item['route']),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.resolveWith((states) {
                 // If the button is pressed, return green, otherwise blue
                 if (states.contains(MaterialState.pressed)) {
-                  return Colors.green;
+                  return const Color(0xFF00588A);
                 }
                 return const Color(0xFF00588A);
               }),

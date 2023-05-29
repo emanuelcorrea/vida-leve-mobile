@@ -1,11 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:vidaleve/model/Patient.dart';
-import 'package:vidaleve/pages/Home/widgets/HomeMenuItem.dart';
 import 'package:vidaleve/pages/Patient/widgets/PatientMenuItem.dart';
 
 class PatientMenuList extends StatefulWidget {
@@ -19,12 +13,18 @@ class PatientMenuList extends StatefulWidget {
 
 class _PatientMenuListState extends State<PatientMenuList> {
   final dynamic menuList = [
-    {'name': 'Anamneses', 'routeName': '/patient-anamneses'},
+    {
+      'name': 'Anamneses',
+      'route': '/patient/anamneses',
+    },
     {
       'name': 'Histórico de consultas',
-      'routeName': '/patient-consultation-history'
+      'route': '/patient-consultation-history',
     },
-    {'name': 'Mais informações', 'routeName': '/patient-details'},
+    {
+      'name': 'Mais informações',
+      'route': '/patient/details',
+    },
   ];
 
   @override

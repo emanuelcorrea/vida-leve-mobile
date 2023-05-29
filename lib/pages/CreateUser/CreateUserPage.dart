@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:provider/provider.dart';
 import 'package:vidaleve/pages/CreateUser/widgets/CreateUserForm.dart';
 import 'package:vidaleve/pages/Login/widgets/LoginTerms.dart';
+import 'package:vidaleve/providers/settings_provider.dart';
+import 'package:vidaleve/widgets/Loading/loading.dart';
 import 'package:vidaleve/widgets/Logo/Logo.dart';
 import 'package:vidaleve/widgets/PageTitle/PageTitle.dart';
 
@@ -16,16 +17,27 @@ class CreateUserPage extends StatefulWidget {
 class _CreateUserState extends State<CreateUserPage> {
   @override
   Widget build(BuildContext context) {
+    final bool isLoading = context.watch<SettingsProvider>().isLoading;
+
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
-        child: Column(
-          children: const [
-            Logo(),
-            PageTitle(title: 'Criar conta'),
-            CreateUserForm(),
+        child: Stack(
+          children: [
+            ListView(
+              children: const [
+                Logo(),
+                PageTitle(title: 'Criar conta'),
+                CreateUserForm(),
+                Padding(
+                  padding: EdgeInsets.only(top: 15.0),
+                  child: LoginTerms(),
+                ),
+              ],
+            ),
+            Loading(isLoading: isLoading)
           ],
-        )
+        ),
       ),
     );
   }

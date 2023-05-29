@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vidaleve/pages/Login/widgets/LoginButton.dart';
 import 'package:vidaleve/pages/Login/widgets/LoginForget.dart';
 import 'package:vidaleve/widgets/Input/Input.dart';
@@ -36,17 +34,22 @@ class _LoginFormState extends State<LoginForm> {
               placeholder: 'E-mail',
               icon: const Icon(Icons.person),
               controller: email,
+              type: 'email',
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15.0),
+              padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
               child: Input(
                 placeholder: 'Senha',
                 icon: const Icon(Icons.lock),
                 controller: password,
                 type: 'password',
+                minLength: 6,
               ),
             ),
-            const LoginForget(),
+            Align(
+              alignment: Alignment.centerRight,
+              child: LoginForget(email: email),
+            ),
             LoginButton(
               formKey: _formKey,
               email: email,

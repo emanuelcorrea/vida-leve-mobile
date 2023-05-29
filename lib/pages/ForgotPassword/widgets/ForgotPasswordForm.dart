@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vidaleve/pages/ForgotPassword/widgets/ForgotBack.dart';
 import 'package:vidaleve/pages/ForgotPassword/widgets/ForgotButton.dart';
+import 'package:vidaleve/providers/auth_provider.dart';
 import 'package:vidaleve/widgets/Input/Input.dart';
 
 class ForgotPasswordForm extends StatefulWidget {
@@ -21,6 +23,15 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   }
 
   @override
+  void initState() {
+    final String forgottenEmail =
+        Provider.of<AuthProvider>(context, listen: false).forgottenEmail;
+
+    email.text = forgottenEmail;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,
@@ -32,6 +43,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                 placeholder: 'E-mail',
                 icon: const Icon(Icons.person),
                 controller: email,
+                type: 'email',
               ),
               ForgotButton(formKey: _formKey, email: email),
               const ForgotBack()

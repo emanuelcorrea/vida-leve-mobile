@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidaleve/model/Patient.dart';
 
@@ -23,14 +22,13 @@ class _PatientMenuItemState extends State<PatientMenuItem> {
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, widget.item['routeName'],
-                arguments: widget.patient);
+            context.push(widget.item['route'], extra: widget.patient);
           },
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.resolveWith((states) {
                 // If the button is pressed, return green, otherwise blue
                 if (states.contains(MaterialState.pressed)) {
-                  return Colors.green;
+                  return const Color(0xFF00588A);
                 }
                 return const Color(0xFF00588A);
               }),
