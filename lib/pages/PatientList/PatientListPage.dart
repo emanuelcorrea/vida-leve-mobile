@@ -14,7 +14,22 @@ class PatientListPage extends StatefulWidget {
 }
 
 class _PatientListPageState extends State<PatientListPage> {
-  final List<Patient> patients = [
+  List<Patient> patients = [
+    Patient(
+        name: 'Leticia Vieira',
+        phone: '123456789',
+        age: 20,
+        city: "Boa Vista",
+        address: "Avenida Presidente Vargas, 1265 Alto da Boa Vista",
+        birthDate: "31/12/2000",
+        job: "Tech Lead",
+        maritalStatus: "Solteira",
+        anamneses: [
+          PatientAnamnese(date: '31/12/2020', time: '15:30'),
+          PatientAnamnese(date: '31/12/2020', time: '15:30'),
+          PatientAnamnese(date: '31/12/2020', time: '15:30'),
+          PatientAnamnese(date: '31/12/2020', time: '15:30')
+        ]),
     Patient(
         name: 'Leonardo Magalhães',
         phone: '123456789',
@@ -75,23 +90,67 @@ class _PatientListPageState extends State<PatientListPage> {
         ]),
   ];
 
+  List<Patient> patientsFiltered = [];
+
+  @override
+  void initState() {
+    patientsFiltered = patients;
+
+    super.initState();
+  }
+
+  Future refresh() async {
+    setState(() {
+      patients = [...patients];
+    });
+  }
+
+  void onChange(String value) {
+    setState(() {
+      patientsFiltered = patients
+          .where((patient) =>
+              patient.name.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Column(
           children: [
             const PatientHeader(),
-            const PatientSearch(),
+            PatientSearch(onChange: onChange),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 28.0),
               child: Breadcrumb(items: ['Home', 'Pacientes']),
             ),
-            Column(
-              children: [
-                ...patients.map((patient) => PatientCard(patient: patient))
-              ],
-            )
+            RefreshIndicator(
+              onRefresh: refresh,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height - 250,
+                child: MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: patientsFiltered.length,
+                    itemBuilder: (context, index) => PatientCard(
+                      patient: patientsFiltered[index],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            // Column(
+            //   children: [
+            //     ...patients.map((patient) => PatientCard(patient: patient))
+            //   ],
+            // )
           ],
         ),
       ),

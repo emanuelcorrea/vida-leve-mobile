@@ -14,7 +14,7 @@ class PatientCard extends StatefulWidget {
 
 class _PatientCardState extends State<PatientCard> {
   _onTap() {
-    context.push('/patient', extra: widget.patient);
+    context.push('/patients/patient', extra: widget.patient);
   }
 
   @override
@@ -41,11 +41,14 @@ class _PatientCardState extends State<PatientCard> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 18.0),
-                  child: Text(widget.patient.name,
-                      style: GoogleFonts.jost(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16)),
+                  child: Text(
+                    widget.patient.name,
+                    style: GoogleFonts.jost(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
               ],
             ),

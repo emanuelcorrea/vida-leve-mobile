@@ -10,9 +10,9 @@ class HomeMenuList extends StatefulWidget {
 
 class _HomeMenuListState extends State<HomeMenuList> {
   final dynamic menuList = [
-    {'name': 'Lista de Pacientes', 'route': '/patient/list'},
-    {'name': 'Registro de Pacientes', 'route': '/patient/list'},
-    {'name': 'Acesso as Anamneses', 'route': '/patient/list'},
+    {'name': 'Lista de Pacientes', 'route': '/patients'},
+    {'name': 'Registro de Pacientes', 'route': '/patients'},
+    {'name': 'Acesso as Anamneses', 'route': '/patients'},
   ];
 
   @override

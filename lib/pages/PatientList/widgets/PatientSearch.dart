@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PatientSearch extends StatefulWidget {
-  const PatientSearch({super.key});
+  final dynamic onChange;
+
+  const PatientSearch({
+    super.key,
+    required this.onChange,
+  });
 
   @override
   State<PatientSearch> createState() => _PatientSearchState();
 }
 
 class _PatientSearchState extends State<PatientSearch> {
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
@@ -23,6 +30,8 @@ class _PatientSearchState extends State<PatientSearch> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: TextField(
+              controller: _searchController,
+              onChanged: (value) => widget.onChange(value),
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,

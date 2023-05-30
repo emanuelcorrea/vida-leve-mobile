@@ -3,7 +3,7 @@ import 'package:vidaleve/model/Patient.dart';
 import 'package:vidaleve/pages/Patient/widgets/PatientMenuItem.dart';
 
 class PatientMenuList extends StatefulWidget {
-  final Patient patient;
+  final Patient? patient;
 
   const PatientMenuList({super.key, required this.patient});
 
@@ -15,15 +15,15 @@ class _PatientMenuListState extends State<PatientMenuList> {
   final dynamic menuList = [
     {
       'name': 'Anamneses',
-      'route': '/patient/anamneses',
+      'route': '/patients/patient/anamneses',
     },
     {
       'name': 'Histórico de consultas',
-      'route': '/patient-consultation-history',
+      'route': '/patients/patient/consultation-history',
     },
     {
       'name': 'Mais informações',
-      'route': '/patient/details',
+      'route': '/patients/patient/details',
     },
   ];
 
@@ -35,8 +35,8 @@ class _PatientMenuListState extends State<PatientMenuList> {
       child: Column(children: [
         Column(
           children: [
-            ...menuList.map(
-                (item) => PatientMenuItem(item: item, patient: widget.patient))
+            ...menuList.map((item) =>
+                PatientMenuItem(item: item, patient: widget.patient as Patient))
           ],
         )
       ]),

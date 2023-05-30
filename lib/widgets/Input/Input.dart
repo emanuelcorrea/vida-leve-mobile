@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 class Input extends StatefulWidget {
   final String placeholder;
   final String type;
-  final Icon icon;
+  Icon? icon;
   final int minLength;
   final TextEditingController controller;
   final dynamic onChange;
   final validator;
 
-  const Input({
+  Input({
     super.key,
     required this.controller,
     required this.placeholder,
-    required this.icon,
+    this.icon,
     this.minLength = 0,
     this.type = 'text',
     this.validator,

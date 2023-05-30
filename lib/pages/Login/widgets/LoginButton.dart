@@ -74,11 +74,9 @@ class _LoginButtonState extends State<LoginButton> {
                 email: email,
                 password: password,
               );
-
               final status = AuthenticationException.handleAuthException(
                 (response['code']),
               );
-
               if (status == AuthStatus.successful) {
                 setIsLoading(false);
 

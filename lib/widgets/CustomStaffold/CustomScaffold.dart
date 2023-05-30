@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomScaffold extends StatefulWidget {
   const CustomScaffold({Key? key, required this.child}) : super(key: key);
@@ -11,6 +12,15 @@ class CustomScaffold extends StatefulWidget {
 
 class _CustomScaffoldState extends State<CustomScaffold> {
   int get _currentIndex => _locationToTabIndex(GoRouter.of(context).location);
+
+  List<String> hideFloating = ['/help-gpt', '/help-gpt-chat'];
+
+  bool _isFloatingVisible(String location) {
+    return !hideFloating.map((e) => location.contains(e)).contains(true);
+  }
+
+  bool get isFloatingVisible =>
+      _isFloatingVisible(GoRouter.of(context).location);
 
   int _locationToTabIndex(String location) {
     final index = tabs.indexWhere((t) {
@@ -32,17 +42,30 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: widget.child,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        items: tabs,
-        fixedColor: const Color(0xFF00588A),
-        onTap: (index) => _onItemTapped(context, index),
-      ),
-    );
+        body: widget.child,
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          type: BottomNavigationBarType.fixed,
+          items: tabs,
+          fixedColor: const Color(0xFF00588A),
+          onTap: (index) => _onItemTapped(context, index),
+        ),
+        floatingActionButton: isFloatingVisible
+            ? FloatingActionButton.extended(
+                onPressed: () {
+                  context.go('/help-gpt');
+                },
+                label: Text('Ajuda',
+                    style: GoogleFonts.jost(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18)),
+                icon: const Icon(Icons.live_help_rounded),
+                backgroundColor: const Color(0xFF00588A),
+              )
+            : null);
   }
 }
 
@@ -68,7 +91,7 @@ const tabs = [
     label: '',
   ),
   NavbarItem(
-    initialLocation: '/patient/list',
+    initialLocation: '/patients',
     icon: Icon(Icons.people_outline),
     label: '',
   ),

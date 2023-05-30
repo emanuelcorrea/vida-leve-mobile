@@ -5,6 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Flutterando",
+            "request": "launch",
+            "type": "dart",
+            "args": ["--web-browser-flag=--disable-web-security"],
+            "flutterMode": "debug",
+        },
+        {
+            "name": "Attach to Chrome",
+            "request": "launch",
+            "type": "dart",
+            "toolArgs": [
+                "--dart-define",
+                "MY_VAR=MY_VALUE",
+                "--dart-define",
+                "MY_OTHER_VAR=MY_OTHER_VALUE"
+            ],
+            "webRoot": "${workspaceFolder}"
+        },
+        {
             "name": "vidaleve",
             "request": "launch",
             "type": "dart",

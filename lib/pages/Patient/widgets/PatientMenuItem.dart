@@ -5,7 +5,7 @@ import 'package:vidaleve/model/Patient.dart';
 
 class PatientMenuItem extends StatefulWidget {
   final dynamic item;
-  final Patient patient;
+  final Patient? patient;
 
   const PatientMenuItem({super.key, required this.item, required this.patient});
 
@@ -44,16 +44,20 @@ class _PatientMenuItemState extends State<PatientMenuItem> {
                 child: Text(
                   widget.item['name'],
                   style: GoogleFonts.jost(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                  ),
                 ),
               ),
-              const Text('+',
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 22,
-                      color: Colors.white))
+              const Text(
+                '+',
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 22,
+                  color: Colors.white,
+                ),
+              )
             ],
           ),
         ),

@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -79,9 +81,7 @@ class _LoginButtonState extends State<CreateUserButton> {
                   context.go('/auth');
                 });
               } else {
-                print('caiu aqui');
                 final error = AuthenticationException.generateMessage(status);
-                print(error);
 
                 ToastNotification.message(
                   message: error,
@@ -90,9 +90,9 @@ class _LoginButtonState extends State<CreateUserButton> {
             }
           } on ResponseHandler catch (message) {
             ToastNotification.message(message: message.toString());
-          }on Exception catch (e) {
+          } on Exception catch (e) {
             setIsLoading(false);
-            print(e);
+            log(e.toString());
           }
         },
         child: Padding(

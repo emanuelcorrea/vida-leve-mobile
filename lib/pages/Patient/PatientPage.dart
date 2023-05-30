@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:vidaleve/model/Patient.dart';
 import 'package:vidaleve/pages/Patient/widgets/PatientHeader.dart';
 import 'package:vidaleve/pages/Patient/widgets/PatientMenuList.dart';
 import 'package:vidaleve/widgets/Breadcrumb/Breadcrumb.dart';
 
 class PatientPage extends StatefulWidget {
-  final dynamic patient;
+  final Patient patient;
 
   const PatientPage({super.key, required this.patient});
 
