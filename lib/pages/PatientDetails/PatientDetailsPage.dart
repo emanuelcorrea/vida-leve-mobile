@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:vidaleve/model/Patient.dart';
 import 'package:vidaleve/pages/PatientDetails/widgets/PatientHeader.dart';
 import 'package:vidaleve/pages/PatientDetails/widgets/PatientInfo.dart';
 import 'package:vidaleve/widgets/Breadcrumb/Breadcrumb.dart';
 
 class PatientDetailsPage extends StatefulWidget {
-  const PatientDetailsPage({super.key});
+  final dynamic patient;
+  
+  const PatientDetailsPage({super.key, required this.patient});
 
   @override
   State<PatientDetailsPage> createState() => _PatientDetailsPageState();
@@ -14,12 +15,10 @@ class PatientDetailsPage extends StatefulWidget {
 class _PatientDetailsPageState extends State<PatientDetailsPage> {
   @override
   Widget build(BuildContext context) {
-    final patient = ModalRoute.of(context)!.settings.arguments as Patient;
-
     return Scaffold(
       body: SafeArea(
         child: Column(children: [
-          PatientHeader(patient: patient),
+          PatientHeader(patient: widget.patient),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 28.0),
             child: Column(
@@ -27,13 +26,13 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Breadcrumb(items: ['Paciente', 'Detalhes']),
-                PatientInfo(info: patient.name),
-                PatientInfo(info: "Data de nascimento: ${patient.birthDate}"),
-                PatientInfo(info: "Telefone: ${patient.phone}"),
-                PatientInfo(info: "Endereço: ${patient.address}"),
-                PatientInfo(info: "Estado Civil: ${patient.maritalStatus}"),
-                PatientInfo(info: "Cidade: ${patient.city}"),
-                PatientInfo(info: "Profissão: ${patient.job}"),
+                PatientInfo(info: widget.patient.name),
+                PatientInfo(info: "Data de nascimento: ${widget.patient.birthDate}"),
+                PatientInfo(info: "Telefone: ${widget.patient.phone}"),
+                PatientInfo(info: "Endereço: ${widget.patient.address}"),
+                PatientInfo(info: "Estado Civil: ${widget.patient.maritalStatus}"),
+                PatientInfo(info: "Cidade: ${widget.patient.city}"),
+                PatientInfo(info: "Profissão: ${widget.patient.job}"),
               ],
             ),
           )

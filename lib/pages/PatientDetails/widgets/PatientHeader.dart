@@ -32,9 +32,9 @@ class _PatientHeaderState extends State<PatientHeader> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(
                     Icons.account_circle,
                     size: 90,

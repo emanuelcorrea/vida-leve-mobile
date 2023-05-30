@@ -29,8 +29,8 @@ class _ForgotPasswordConfirmPageState extends State<ForgotPasswordConfirmPage> {
         child: AnimatedOpacity(
           duration: const Duration(milliseconds: 300),
           opacity: isLoaded ? 1.0 : 0.0,
-          child: const Column(
-            children: [
+          child: Column(
+            children: const [
               Logo(),
               PageTitle(title: 'Confirmar código'),
               ForgotPasswordConfirmForm(),

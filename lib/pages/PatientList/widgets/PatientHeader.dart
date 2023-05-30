@@ -12,7 +12,7 @@ class _HeaderState extends State<PatientHeader> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height / 5,
+      height: MediaQuery.of(context).size.height / 9,
       decoration: const BoxDecoration(color: Color(0xFF00588A), boxShadow: [
         BoxShadow(
           color: Color.fromARGB(148, 158, 158, 158),

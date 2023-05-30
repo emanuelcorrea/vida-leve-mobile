@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:vidaleve/model/Patient.dart';
+import 'package:vidaleve/model/user.dart';
+import 'package:vidaleve/pages/CreateUser/CreateUserPage.dart';
 import 'package:vidaleve/pages/ForgotPassword/ForgotPasswordPage.dart';
 import 'package:vidaleve/pages/ForgotPasswordConfirm/ForgotPasswordConfirmPage.dart';
 import 'package:vidaleve/pages/Home/HomePage.dart';
@@ -24,17 +26,23 @@ void main() async {
       ChangeNotifierProvider(create: (context) => SettingsProvider()),
       ChangeNotifierProvider(create: (context) => UserProvider()),
     ],
-    child: const MyApp(),
+    child: MyApp(),
   ));
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
 final shellNavigatorKey = GlobalKey<NavigatorState>();
 
-final GoRouter _router = GoRouter(
-  initialLocation: '/auth',
-  routes: <RouteBase>[
-    ShellRoute(
+
+class MyApp extends StatelessWidget {
+  MyApp({super.key});
+  final settinsProvider = SettingsProvider();
+  
+  late final GoRouter _router = GoRouter(
+    refreshListenable: settinsProvider,
+    initialLocation: '/auth',
+    routes: <RouteBase>[
+      ShellRoute(
         navigatorKey: shellNavigatorKey,
         builder: (context, state, child) {
           return LoginScaffold(child: child);
@@ -57,76 +65,104 @@ final GoRouter _router = GoRouter(
                       builder: (BuildContext context, GoRouterState state) =>
                           const ForgotPasswordConfirmPage(),
                     )
-                  ]),
+                  ],
+                ),
+                GoRoute(
+                  path: 'create',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return const CreateUserPage();
+                  },
+                ),
             ],
           ),
-        ]),
-    ShellRoute(
-      navigatorKey: shellNavigatorKey,
-      builder: (context, state, child) {
-        return CustomScaffold(child: child);
-      },
-      routes: [
-        GoRoute(
-          path: '/home',
-          builder: (BuildContext context, GoRouterState state) {
-            return const HomePage();
-          },
-        ),
-        GoRoute(
-          path: '/calendar',
-          builder: (BuildContext context, GoRouterState state) {
-            return const HomePage();
-          },
-        ),
-        GoRoute(
-          path: '/profile',
-          builder: (BuildContext context, GoRouterState state) {
-            return const HomePage();
-          },
-        ),
-        GoRoute(
-          path: '/patient',
-          name: 'patient',
-          builder: (BuildContext context, GoRouterState state) {
-            final Patient patient = state.extra as Patient;
+        ],
+      ),
+      ShellRoute(
+        navigatorKey: shellNavigatorKey,
+        builder: (context, state, child) {
+          return CustomScaffold(child: child);
+        },
+        routes: [
+          GoRoute(
+            path: '/home',
+            builder: (BuildContext context, GoRouterState state) {
+              return const HomePage();
+            },
+          ),
+          GoRoute(
+            path: '/calendar',
+            builder: (BuildContext context, GoRouterState state) {
+              return const HomePage();
+            },
+          ),
+          GoRoute(
+            path: '/profile',
+            builder: (BuildContext context, GoRouterState state) {
+              return const HomePage();
+            },
+          ),
+          GoRoute(
+            path: '/patient',
+            name: 'patient',
+            builder: (BuildContext context, GoRouterState state) {
+              final Patient patient = state.extra as Patient;
 
-            return PatientPage(
-              patient: patient,
-            );
-          },
-          routes: [
-            GoRoute(
-              path: 'list',
-              builder: (BuildContext context, GoRouterState state) {
-                return const PatientListPage();
-              },
-            ),
-            GoRoute(
-              path: 'anamneses',
-              builder: (BuildContext context, GoRouterState state) {
-                final Patient patient = state.extra as Patient;
+              return PatientPage(
+                patient: patient,
+              );
+            },
+            routes: [
+              GoRoute(
+                path: 'list',
+                builder: (BuildContext context, GoRouterState state) {
+                  return const PatientListPage();
+                },
+              ),
+              GoRoute(
+                path: 'anamneses',
+                builder: (BuildContext context, GoRouterState state) {
+                  final Patient patient = state.extra as Patient;
 
-                return PatientAnamnesesPage(
-                  patient: patient,
-                );
-              },
-            ),
-            GoRoute(
-              path: 'details',
-              builder: (BuildContext context, GoRouterState state) {
-                return const PatientDetailsPage();
-              },
-            )
-          ],
-        ),
-      ],
-    ),
-  ],
-);
+                  return PatientAnamnesesPage(
+                    patient: patient,
+                  );
+                },
+              ),
+              GoRoute(
+                path: 'details',
+                builder: (BuildContext context, GoRouterState state) {
+                  final Patient patient = state.extra as Patient;
+                  
+                  return PatientDetailsPage(patient: patient);
+                },
+              )
+            ],
+          ),
+        ],
+      ),
+    ],
+    redirect: (context, state) {
+      final isLogoutLocation = state.location == '/logout';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+      dynamic user = 
+        Provider.of<SettingsProvider>(context, listen: false).user;
+
+      final isLogged = !(user == null || user == '');
+
+
+      if (!state.location.startsWith('/auth') && !isLogged) {
+        return '/auth';
+      }
+
+      if (isLogoutLocation) {
+        Provider.of<SettingsProvider>(context, listen: false).setUser('');
+
+        return '/auth';
+      }
+    
+      return null;
+    },
+  );
 
   @override
   Widget build(BuildContext context) {

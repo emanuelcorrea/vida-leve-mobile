@@ -13,7 +13,7 @@ class _LoginCreateUserState extends State<LoginCreateUser> {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => context.go('/create-user'),
+      onPressed: () => context.go('/auth/create'),
       style: ButtonStyle(
         maximumSize: MaterialStateProperty.all<Size>(const Size(80, 50)),
         fixedSize: MaterialStateProperty.all<Size>(const Size(80, 50)),

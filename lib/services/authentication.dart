@@ -39,14 +39,18 @@ class Authentication {
     required String password,
   }) async {
     try {
-      var response =
+      _response =
           await _api.post(controller: 'auth', action: 'createAccount', data: {
         'name': name,
         'email': email,
         'password': password,
       });
 
-      _response = jsonDecode(response.body);
+    } on DioError catch (e) {
+      final RequestStatus status =
+          AuthenticationException.handleRequestException(e.type);
+
+      throw ResponseHandler(status);
     } on AuthException catch (e) {
       _response = AuthenticationException.handleAuthException(e);
     }

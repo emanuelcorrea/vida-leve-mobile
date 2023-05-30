@@ -1,11 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:vidaleve/providers/settings_provider.dart';
 import 'package:vidaleve/services/authentication.dart';
 import 'package:vidaleve/interfaces/authentication_exceptions.dart';
+import 'package:vidaleve/utils/response_handler.dart';
 import 'package:vidaleve/widgets/ToastNotification/ToastNotification.dart';
 
 class CreateUserButton extends StatefulWidget {
@@ -67,24 +69,29 @@ class _LoginButtonState extends State<CreateUserButton> {
               final status = AuthenticationException.handleAuthException(
                   (response['code']));
 
-              if (status == AuthStatus.successful) {
-                setIsLoading(false);
+              setIsLoading(false);
 
+              if (status == AuthStatus.successful) {
                 ToastNotification.message(
                     message: 'Usuário criado com sucesso!');
 
-                Navigator.pushNamed(context, '/');
+                Future.delayed(const Duration(milliseconds: 300), () {
+                  context.go('/auth');
+                });
               } else {
-                setIsLoading(false);
-
+                print('caiu aqui');
                 final error = AuthenticationException.generateMessage(status);
+                print(error);
 
                 ToastNotification.message(
                   message: error,
                 );
               }
             }
-          } on Exception catch (e) {
+          } on ResponseHandler catch (message) {
+            ToastNotification.message(message: message.toString());
+          }on Exception catch (e) {
+            setIsLoading(false);
             print(e);
           }
         },

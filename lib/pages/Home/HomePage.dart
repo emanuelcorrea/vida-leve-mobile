@@ -14,16 +14,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Column(children: [
-          HomeHeader(),
-          HomeSearch(),
+          const HomeHeader(),
+          const HomeSearch(),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
-              children: [HomeTitle(), HomeMenuList()],
+              children: const [HomeTitle(), HomeMenuList(),],
             ),
           )
         ]),

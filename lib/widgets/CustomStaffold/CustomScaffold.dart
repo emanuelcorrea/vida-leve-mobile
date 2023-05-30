@@ -31,9 +31,6 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    print(GoRouter.of(context).location);
-    print(_currentIndex);
-
     return Scaffold(
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(

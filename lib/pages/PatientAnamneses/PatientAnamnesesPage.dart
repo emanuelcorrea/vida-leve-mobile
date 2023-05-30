@@ -16,7 +16,6 @@ class PatientAnamnesesPage extends StatefulWidget {
 class _PatientAnamnesesPageState extends State<PatientAnamnesesPage> {
   @override
   Widget build(BuildContext context) {
-    print(GoRouter.of(context).location);
     return Scaffold(
       body: SafeArea(
         child: Column(
