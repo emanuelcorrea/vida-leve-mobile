@@ -35,41 +35,23 @@ class _HeaderState extends State<HelpHeader> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Olá, ${_user?.nome}!',
-                        style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                            fontSize: 40)),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Text(
-                          'Você possui 3 consultas hoje e 2 aprovações pendentes.',
-                          style: GoogleFonts.inter(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                              fontSize: 14)),
-                    )
-                  ],
-                ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(
-                    Icons.account_circle,
-                    size: 100,
-                    color: Colors.white,
-                  )
-                ],
+              Text('Bem vindo ao HelpGPT!',
+                  style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      fontSize: 40)),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Text(
+                    'Auxiiamos você a identificar o seu problema com um diagnóstico rápido.',
+                    style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                        fontSize: 14)),
               )
             ],
           ),

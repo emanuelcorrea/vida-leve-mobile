@@ -31,9 +31,9 @@ class _HeaderState extends State<PatientHeader> {
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Row(
             children: [
-              const Column(
+               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(
                     Icons.account_circle,
                     size: 100,

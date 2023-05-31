@@ -43,29 +43,29 @@ class _HelpFormState extends State<HelpForm> {
     return newContext['data'];
   }
 
-  void onPressed() async {
-    print('clicou');
-
-    dynamic newContext = await askGpt([
-      {
-        "role": "user",
-        "content":
-            "Olá, me ajuda, to com fadiga, sem sono e com pouco apetite, o q pode ser?",
-      }
-    ]);
-
-    setContext(newContext);
-
-    context.push('/help-gpt/chat', extra: {
-      'sintomas': sintomas.text,
-      'fadiga': fadiga.text,
-      'sleep': sleep.text,
-      'apetite': apetite.text,
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    void onPressed() async {
+      print('clicou');
+
+      dynamic newContext = await askGpt([
+        {
+          "role": "user",
+          "content":
+              "Olá, me ajuda, to com fadiga, sem sono e com pouco apetite, o q pode ser?",
+        }
+      ]);
+
+      setContext(newContext);
+
+      context.push('/help-gpt/chat', extra: {
+        'sintomas': sintomas.text,
+        'fadiga': fadiga.text,
+        'sleep': sleep.text,
+        'apetite': apetite.text,
+      });
+    }
+    
     return Padding(
       padding: const EdgeInsets.only(top: 20, left: 40.0, right: 50.0),
       child: Form(

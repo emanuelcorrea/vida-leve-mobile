@@ -42,7 +42,6 @@ $ flutter run
 
 - [Flutter](https://flutter.dev/) - Construa aplicativos nativos usando o framework Flutter, em Dart.
 - [Google-Fonts](https://fonts.google.com/) - Google Fonts.
-- [Firebase](https://firebase.google.com/) - Google Firebase
 
 ## Contributing
 

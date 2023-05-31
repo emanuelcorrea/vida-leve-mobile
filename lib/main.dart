@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:vidaleve/model/Patient.dart';
+import 'package:vidaleve/model/patientAnamnese.dart';
+import 'package:vidaleve/pages/Calendar/calendar_page.dart';
 import 'package:vidaleve/pages/CreateUser/CreateUserPage.dart';
 import 'package:vidaleve/pages/ForgotPassword/ForgotPasswordPage.dart';
 import 'package:vidaleve/pages/ForgotPasswordConfirm/ForgotPasswordConfirmPage.dart';
@@ -11,6 +13,7 @@ import 'package:vidaleve/pages/Home/HomePage.dart';
 import 'package:vidaleve/pages/Login/LoginPage.dart';
 import 'package:vidaleve/pages/Patient/PatientPage.dart';
 import 'package:vidaleve/pages/PatientAnamneses/PatientAnamnesesPage.dart';
+import 'package:vidaleve/pages/PatientAnamnesesShow/PatientAnamnesesPage.dart';
 import 'package:vidaleve/pages/PatientDetails/PatientDetailsPage.dart';
 import 'package:vidaleve/pages/PatientList/PatientListPage.dart';
 import 'package:vidaleve/providers/auth_provider.dart';
@@ -19,6 +22,7 @@ import 'package:vidaleve/providers/settings_provider.dart';
 import 'package:vidaleve/providers/user_provider.dart';
 import 'package:vidaleve/widgets/CustomStaffold/CustomScaffold.dart';
 import 'package:vidaleve/widgets/LoginScaffold/CustomScaffold.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -101,14 +105,6 @@ class _MyAppState extends State<MyApp> {
             },
           ),
           GoRoute(
-            path: '/calendar',
-            pageBuilder: (context, state) {
-              return const NoTransitionPage(
-                child: HomePage(),
-              );
-            },
-          ),
-          GoRoute(
             path: '/profile',
             pageBuilder: (context, state) {
               return const NoTransitionPage(
@@ -155,6 +151,14 @@ class _MyAppState extends State<MyApp> {
                         patient: patient,
                       );
                     },
+                    routes: [
+                      GoRoute(
+                        path: 'show',
+                        builder: (BuildContext context, GoRouterState state) {
+                          return const PatientAnamnesesShowPage();
+                        },
+                      )
+                    ]
                   ),
                   GoRoute(
                     path: 'details',
@@ -182,7 +186,14 @@ class _MyAppState extends State<MyApp> {
                     return HelpGptChat(form: form);
                   },
                 ),
-              ]),
+              ],
+            ),
+          GoRoute(
+              path: '/calendar',
+              builder: (context, state) {
+                return const CalendarPage();
+              },
+            ),
         ],
       ),
     ],
