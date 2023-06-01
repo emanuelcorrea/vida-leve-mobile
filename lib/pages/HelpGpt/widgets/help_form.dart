@@ -48,22 +48,22 @@ class _HelpFormState extends State<HelpForm> {
     void onPressed() async {
       print('clicou');
 
-      dynamic newContext = await askGpt([
+      dynamic newContext = [
         {
           "role": "user",
           "content":
-              "Olá, me ajuda, to com fadiga, sem sono e com pouco apetite, o q pode ser?",
+              "Olá, me ajuda, to com fadiga, sem sono e com pouco apetite, o que pode ser?",
+        },
+        {
+          "role": "chat",
+          "content":
+              "A fadiga, a falta de sono e a perda de apetite podem ser sintomas de várias condições diferentes, desde problemas de saúde física até questões emocionais. Algumas possíveis causas para esses sintomas podem incluir: Estresse...",
         }
-      ]);
+      ];
 
       setContext(newContext);
 
-      context.push('/help-gpt/chat', extra: {
-        'sintomas': sintomas.text,
-        'fadiga': fadiga.text,
-        'sleep': sleep.text,
-        'apetite': apetite.text,
-      });
+      context.go('/help-gpt/chat');
     }
     
     return Padding(

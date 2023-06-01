@@ -10,6 +10,8 @@ class HelpGptService {
   static late dynamic _response;
 
   Future ask(List<dynamic> context) async {
+    print(jsonEncode(context));
+    
     try {
       _response = await _api.post(
         controller: 'help_gpt',
